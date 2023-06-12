@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>To-Do List</title>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-    <h1>To-Do List</h1>
-    <form id="todo-form">
-        <input type="text" id="todo-input" placeholder="Enter a task...">
-        <button type="submit">Add</button>
-    </form>
-    <h3>Current Tasks:</h3>
-    <ul id="todo-list"></ul>
 
+<body>
+    <div class="container">
+        <div class="app">
+            <!-- Title -->
+            <h2>To-Do List</h2>
+            <!-- Input bar -->
+            <form id="task-form">
+                <input type="text" id="task-input" placeholder="Enter a task...">
+                <button type="submit" class="button" id="add-button" onclick="addTask()">Add</button>
+            </form>
+            <!-- Show pending tasks -->
+            <h3>Pending Tasks:</h3>
+            <ul id="task-list"></ul>
+        </div>
+    </div>
     <script src="js/script.js"></script>
 </body>
 </html>

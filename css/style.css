@@ -1,3 +1,119 @@
-li button {
-    display: none;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Slab', serif;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: skyblue;
+    padding: 10px;
+}
+
+.app {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.app h2, .app h3 {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 20px 0;
+}
+
+#task-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: lightgrey;
+    border-radius: 30px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+
+#task-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.button {
+    background-color: skyblue;
+    outline: none;
+    border: none;
+    border-radius: 30px; 
+    padding: 10px 30px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+ul li {
+    list-style: none;
+    position: relative;
+    padding: 15px;
+    font-size: 16px;
+    user-select: none;
+    text-indent: 30px;
+}
+
+ul li input {
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+ul li input:checked {
+    color: grey;
+}
+
+/* ul li div {
+    display: inline-block;
+} */
+
+ul li.completed {
+    text-decoration: line-through;
+    color: grey;
+}
+
+ul li span {
+    position: absolute;
+    right: 10px;
+    font-size: 30px;
+    color: red;
+    line-height: 10px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    width: 25px;
+    height: 25px;
+    text-indent: 0;
+}
+
+ul li span:hover {
+    background-color: lightgrey;
+    cursor: pointer;
 }

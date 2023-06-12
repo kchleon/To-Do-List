@@ -1,70 +1,70 @@
-// Get the necessary elements from the DOM
-const form = document.getElementById('todo-form');
-const input = document.getElementById('todo-input');
-const list = document.getElementById('todo-list');
+var taskInput = document.getElementById("task-input");
+var taskList = document.getElementById("task-list");
 
-// Store the tasks in an array
-let tasks = [];
-
-// Function to add a new task
-function addTask(event) {
-    event.preventDefault(); // Prevent form submission
-
-    const taskText = input.value.trim(); // Get the task text
-
-    if (taskText !== '') {
-        const task = { text: taskText, completed: false }; // Create a new task object
-        tasks.push(task); // Add the task to the array
-
-        renderTask(task); // Render the task on the page
-
-        input.value = ''; // Clear the input field
-        input.focus(); // Set focus back to the input field
-
-        // Show the buttons
-        showButtons();
-  }
-}
-
-// Function to render a task on the page
-function renderTask(task) {
-    const listItem = document.createElement('li');
-    listItem.textContent = task.text;
-
-    // Create the Edit button
-    const editButton = document.createElement('button');
-    editButton.textContent = 'Edit';
-    listItem.appendChild(editButton);
-
-    // Create the Complete button
-    const completeButton = document.createElement('button');
-    completeButton.textContent = 'Complete';
-    listItem.appendChild(completeButton);
-
-    // Create the Delete button
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    listItem.appendChild(deleteButton);
-
-    if (task.completed) {
-        listItem.classList.add('completed');
+function addTask() {
+    if (taskInput.value !== "") {
+        var taskItem = document.createElement("li");
+        taskItem.innerHTML = taskInput.value;
+        taskList.appendChild(taskItem);
+        // Complete checkbox
+        var completeButton = document.createElement("input");
+        completeButton.type = "checkbox";
+        taskItem.appendChild(completeButton);
+        // Add delete button
+        var deleteButton = document.createElement("span");
+        deleteButton.innerHTML = "\u00d7";
+        taskItem.appendChild(deleteButton);
     }
-
-    list.appendChild(listItem);
-
-    // Event listener for the Delete button
-    deleteButton.addEventListener('click', () => {
-        deleteTask(index);
-    });
+    taskInput.value = "";
+    saveList();
 }
 
-// Function to show the buttons
-function showButtons() {
-    const buttons = document.querySelectorAll('li button');
-    buttons.forEach(button => {
-        button.style.display = 'inline-block';
-    });
+taskList.addEventListener("click", function(e) {
+    if (e.target.tagName === "INPUT") {
+        e.target.parentElement.classList.toggle("completed");
+    } else if (e.target.tagName === "SPAN") {
+        e.target.parentElement.remove();
+    }
+    saveList();
+}, false);
+
+function saveList() {
+    var tasks = [];
+    for (var i = 0; i < taskList.children.length; i++) {
+        var task = taskList.children.item(i);
+        var taskInfo = {
+            "text": task.innerHTML,
+            "completed": task.classList.contains("completed")
+        };
+        tasks.push(taskInfo);
+    }
+    
+    localStorage.setItem("task-list", JSON.stringify(tasks));
 }
 
-// Event listener for form submission
-form.addEventListener('submit', addTask);
+function showList() {
+    if (localStorage.getItem("task-list") != null) {
+        var tasks = JSON.parse(localStorage.getItem("task-list"));
+        for (var i = 0; i < tasks.length; i++) {
+            var taskInfo = tasks[i];
+
+            var taskItem = document.createElement("li");
+            taskItem.innerHTML = taskInfo.text;
+            taskList.appendChild(taskItem);
+            // Complete checkbox
+            var completeButton = document.createElement("input");
+            completeButton.type = "checkbox";
+            if (taskInfo.completed == true) {
+                completeButton.checked = true;
+                taskItem.classList.add("completed");
+            }
+            taskItem.appendChild(completeButton);
+            // Add delete button
+            var deleteButton = document.createElement("span");
+            deleteButton.innerHTML = "\u00d7";
+            taskItem.appendChild(deleteButton);
+        }
+    }
+}
+
+showList();
